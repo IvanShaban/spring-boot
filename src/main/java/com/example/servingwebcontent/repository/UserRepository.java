@@ -1,18 +1,19 @@
-package com.example.servingwebcontent.dao;
+package com.example.servingwebcontent.repository;
 
-import com.example.servingwebcontent.models.Sex;
-import com.example.servingwebcontent.models.User;
+import com.example.servingwebcontent.repository.entity.Sex;
+import com.example.servingwebcontent.repository.entity.User;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class UserDAO {
+@Repository
+public class UserRepository {
     private static int COUNT;
-    private List<User> users;
+    private static List<User> users;
 
-    {
+    static {
         users = new ArrayList<>();
         users.add(new User(++COUNT, "Ivan", Sex.MALE, "ivan@mail.com"));
         users.add(new User(++COUNT, "Darya", Sex.FEMALE, "darya@mail.com"));

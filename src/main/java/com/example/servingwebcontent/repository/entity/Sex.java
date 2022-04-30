@@ -1,10 +1,10 @@
-package com.example.servingwebcontent.models;
+package com.example.servingwebcontent.repository.entity;
 
 public enum Sex {
     MALE("мужской"),
     FEMALE("женский");
 
-    private String translation;
+    private final String translation;
 
     Sex(String translation) {
         this.translation = translation;

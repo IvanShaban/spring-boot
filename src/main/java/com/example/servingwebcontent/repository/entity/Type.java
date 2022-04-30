@@ -1,11 +1,11 @@
-package com.example.servingwebcontent.models;
+package com.example.servingwebcontent.repository.entity;
 
 public enum Type {
     PHONE("Телефон"),
     LAPTOP("Ноутбук"),
     MONITOR("Монитор");
 
-    private String translation;
+    private final String translation;
 
     Type(String translation) {
         this.translation = translation;

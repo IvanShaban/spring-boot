@@ -1,9 +1,8 @@
-package com.example.servingwebcontent.controllers;
+package com.example.servingwebcontent.controller;
 
-import com.example.servingwebcontent.dao.UserDAO;
-import com.example.servingwebcontent.models.Device;
-import com.example.servingwebcontent.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.servingwebcontent.repository.UserRepository;
+import com.example.servingwebcontent.repository.entity.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,23 +12,19 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UsersController {
-    private final UserDAO userDAO;
-
-    @Autowired
-    public UsersController(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
+    private final UserRepository userRepository;
 
     @GetMapping
     public String goToUsersPage(Model model) {
-        model.addAttribute("users", userDAO.findAll());
+        model.addAttribute("users", userRepository.findAll());
         return "users/start";
     }
 
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userDAO.findById(id));
+        model.addAttribute("user", userRepository.findById(id));
         return "users/personal";
     }
 
@@ -43,13 +38,13 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "users/new";
         }
-        userDAO.create(user);
+        userRepository.create(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userDAO.findById(id));
+        model.addAttribute("user", userRepository.findById(id));
         return "users/edit";
     }
 
@@ -59,13 +54,13 @@ public class UsersController {
         if (bindingResult.hasErrors()) {
             return "users/edit";
         }
-        userDAO.update(id, user);
+        userRepository.update(id, user);
         return "redirect:/users";
     }
 
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") int id) {
-        userDAO.delete(id);
+        userRepository.delete(id);
         return "redirect:/users";
     }
 
