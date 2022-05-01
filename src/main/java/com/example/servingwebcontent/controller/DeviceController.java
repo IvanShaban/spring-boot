@@ -15,19 +15,19 @@ import java.util.List;
 public class DeviceController {
     private final DeviceService deviceService;
 
+    @PostMapping
+    public void create(@RequestBody @Valid DeviceCreateDto deviceCreateDto) {
+        deviceService.create(deviceCreateDto);
+    }
+
     @GetMapping
     public List<DeviceDto> getAllDevices() {
         return deviceService.getAll();
     }
 
     @GetMapping("/{id}")
-    public DeviceDto findById(@PathVariable("id") Long id) {
+    public DeviceDto getById(@PathVariable("id") Long id) {
         return deviceService.getById(id);
-    }
-
-    @PostMapping
-    public void create(@RequestBody @Valid DeviceCreateDto deviceCreateDto) {
-        deviceService.create(deviceCreateDto);
     }
 
     @PutMapping

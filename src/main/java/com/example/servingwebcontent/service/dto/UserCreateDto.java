@@ -9,9 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Builder
 @Value
-public class UserDto {
-    @NotNull
-    Long id;
+public class UserCreateDto {
     @NotBlank
     String name;
     @NotNull

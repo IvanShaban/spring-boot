@@ -5,11 +5,11 @@ import com.example.servingwebcontent.service.dto.DeviceDto;
 import com.example.servingwebcontent.repository.entity.Device;
 
 public class DeviceMapper {
-    public static Device toDevice(DeviceCreateDto deviceDto) {
+    public static Device toDevice(DeviceCreateDto deviceCreateDto) {
         return Device.builder()
-                .name(deviceDto.getName())
-                .ownerId(deviceDto.getOwnerId())
-                .type(deviceDto.getType())
+                .name(deviceCreateDto.getName())
+                .type(deviceCreateDto.getType())
+                .ownerId(deviceCreateDto.getOwnerId())
                 .build();
     }
 
@@ -17,8 +17,8 @@ public class DeviceMapper {
         return Device.builder()
                 .id(deviceDto.getId())
                 .name(deviceDto.getName())
-                .ownerId(deviceDto.getOwnerId())
                 .type(deviceDto.getType())
+                .ownerId(deviceDto.getOwnerId())
                 .build();
     }
 
@@ -26,8 +26,8 @@ public class DeviceMapper {
         return DeviceDto.builder()
                 .id(device.getId())
                 .name(device.getName())
-                .ownerId(device.getOwnerId())
                 .type(device.getType())
+                .ownerId(device.getOwnerId())
                 .build();
     }
 }

@@ -20,10 +20,8 @@ import java.util.stream.StreamSupport;
 public class DeviceService {
     private final DeviceRepository deviceRepository;
 
-    public DeviceDto getById(Long id) {
-        Optional<Device> device = deviceRepository.findById(id);
-        String exceptionMessage = StringUtils.join("Device with id ", id, " not found");
-        return DeviceMapper.toDeviceDto(device.orElseThrow(() -> new DeviceNotFoundException(exceptionMessage)));
+    public void create(DeviceCreateDto deviceCreateDto) {
+        deviceRepository.save(DeviceMapper.toDevice(deviceCreateDto));
     }
 
     public List<DeviceDto> getAll() {
@@ -33,8 +31,10 @@ public class DeviceService {
 
     }
 
-    public void create(DeviceCreateDto deviceCreateDto) {
-        deviceRepository.save(DeviceMapper.toDevice(deviceCreateDto));
+    public DeviceDto getById(Long id) {
+        Optional<Device> device = deviceRepository.findById(id);
+        String exceptionMessage = StringUtils.join("Device with id ", id, " not found");
+        return DeviceMapper.toDeviceDto(device.orElseThrow(() -> new DeviceNotFoundException(exceptionMessage)));
     }
 
     public void update(DeviceDto deviceDto) {
