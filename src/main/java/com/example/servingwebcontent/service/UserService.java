@@ -21,23 +21,23 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void create(UserCreateDto userCreateDto) {
-        userRepository.save(UserMapper.toUser(userCreateDto));
+        userRepository.save(UserMapper.INSTANCE.userCreateDtoToUser(userCreateDto));
     }
 
     public List<UserDto> getAll() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false)
-                .map(UserMapper::toUserDto)
+                .map(UserMapper.INSTANCE::userToUserDto)
                 .collect(Collectors.toList());
     }
 
     public UserDto getById(Long id) {
         Optional<User> user = userRepository.findById(id);
         String exceptionMessage = StringUtils.join("User with id ", id, " not found");
-        return UserMapper.toUserDto(user.orElseThrow(()-> new UserNotFoundException(exceptionMessage)));
+        return UserMapper.INSTANCE.userToUserDto(user.orElseThrow(()-> new UserNotFoundException(exceptionMessage)));
     }
 
     public void update(UserDto userDto) {
-        userRepository.save(UserMapper.toUser(userDto));
+        userRepository.save(UserMapper.INSTANCE.userDtoToUser(userDto));
     }
 
     public void delete(Long id) {

@@ -21,24 +21,23 @@ public class DeviceService {
     private final DeviceRepository deviceRepository;
 
     public void create(DeviceCreateDto deviceCreateDto) {
-        deviceRepository.save(DeviceMapper.toDevice(deviceCreateDto));
+        deviceRepository.save(DeviceMapper.INSTANCE.deviceCreateDtoToDevice(deviceCreateDto));
     }
 
     public List<DeviceDto> getAll() {
         return StreamSupport.stream(deviceRepository.findAll().spliterator(), false)
-                .map(DeviceMapper::toDeviceDto)
+                .map(DeviceMapper.INSTANCE::deviceToDeviceDto)
                 .collect(Collectors.toList());
-
     }
 
     public DeviceDto getById(Long id) {
         Optional<Device> device = deviceRepository.findById(id);
         String exceptionMessage = StringUtils.join("Device with id ", id, " not found");
-        return DeviceMapper.toDeviceDto(device.orElseThrow(() -> new DeviceNotFoundException(exceptionMessage)));
+        return DeviceMapper.INSTANCE.deviceToDeviceDto(device.orElseThrow(() -> new DeviceNotFoundException(exceptionMessage)));
     }
 
     public void update(DeviceDto deviceDto) {
-        deviceRepository.save(DeviceMapper.toDevice(deviceDto));
+        deviceRepository.save(DeviceMapper.INSTANCE.deviceDtoToDevice(deviceDto));
     }
 
     public void delete(Long id) {

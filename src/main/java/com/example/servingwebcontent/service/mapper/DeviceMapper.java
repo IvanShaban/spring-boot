@@ -1,33 +1,16 @@
 package com.example.servingwebcontent.service.mapper;
 
+import com.example.servingwebcontent.repository.entity.Device;
 import com.example.servingwebcontent.service.dto.DeviceCreateDto;
 import com.example.servingwebcontent.service.dto.DeviceDto;
-import com.example.servingwebcontent.repository.entity.Device;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-public class DeviceMapper {
-    public static Device toDevice(DeviceCreateDto deviceCreateDto) {
-        return Device.builder()
-                .name(deviceCreateDto.getName())
-                .type(deviceCreateDto.getType())
-                .ownerId(deviceCreateDto.getOwnerId())
-                .build();
-    }
+@Mapper
+public interface DeviceMapper {
+    DeviceMapper INSTANCE = Mappers.getMapper(DeviceMapper.class);
 
-    public static Device toDevice(DeviceDto deviceDto) {
-        return Device.builder()
-                .id(deviceDto.getId())
-                .name(deviceDto.getName())
-                .type(deviceDto.getType())
-                .ownerId(deviceDto.getOwnerId())
-                .build();
-    }
-
-    public static DeviceDto toDeviceDto(Device device) {
-        return DeviceDto.builder()
-                .id(device.getId())
-                .name(device.getName())
-                .type(device.getType())
-                .ownerId(device.getOwnerId())
-                .build();
-    }
+    Device deviceCreateDtoToDevice(DeviceCreateDto deviceCreateDto);
+    Device deviceDtoToDevice(DeviceDto deviceDto);
+    DeviceDto deviceToDeviceDto(Device device);
 }
