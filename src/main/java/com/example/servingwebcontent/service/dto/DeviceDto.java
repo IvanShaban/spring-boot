@@ -16,5 +16,5 @@ public class DeviceDto {
     String name;
     @NotNull
     Type type;
-    Integer ownerId;
+    Long ownerId;
 }

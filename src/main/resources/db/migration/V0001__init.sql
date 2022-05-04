@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS users
 (
-    id       bigint(20)        AUTO_INCREMENT,
+    id       bigserial         NOT NULL,
     name     varchar(100)      NOT NULL,
     sex      varchar(100)      NOT NULL,
     email    varchar(100)      NOT NULL,
@@ -9,10 +9,10 @@ CREATE TABLE IF NOT EXISTS users
 
 CREATE TABLE IF NOT EXISTS devices
 (
-    id       bigint(20)        AUTO_INCREMENT,
+    id       BIGSERIAL         NOT NULL,
     name     varchar(100)      NOT NULL,
     type     varchar(100)      NOT NULL,
-    owner_id bigint(20),
+    owner_id bigint,
     PRIMARY KEY (id),
     FOREIGN KEY (owner_id) REFERENCES users (id)
 );
